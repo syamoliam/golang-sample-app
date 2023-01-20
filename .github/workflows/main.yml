@@ -7,8 +7,8 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: cor_cmd_couchbase
-  IMAGE_TAG: ${{ github.run_number }}
+  IMAGE_NAME: ${{ github.respository }}
+  IMAGE_TAG: 1.0.${{ github.run_number }}
 
 jobs:
   build-push-docker-image:
@@ -48,7 +48,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v1
       with: 
-        images: ${{ env.IMAGE_NAME }}
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
     - name: Build and Push Docker Image 
       id: build-and-push
@@ -56,5 +56,5 @@ jobs:
       with:
         context: .
         push: true
-        tags: "tag"
+        tags: ${{ steps.meta.outputs.tags }}:${{ env.IMAGE_TAG }}
         labels: ${{ steps.meta.outputs.labels }}
