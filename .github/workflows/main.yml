@@ -1,0 +1,26 @@
+name: Image Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [closed, assigned, opened, reopened] 
+jobs:
+  build-push-docker-image:
+    runs-on: ubuntu-latest  
+  version: '1.0'
+  steps:
+    main_clone:
+      title: Cloning main repository...
+      type: git-clone
+      repo: 'codefresh-contrib/golang-sample-app'
+      revision: master
+      git: github
+    MyAppDockerImage:
+      title: Building Docker Image
+      type: build
+      image_name: my-golang-image
+      working_directory: ./
+      tag: full
+      dockerfile: Dockerfile
