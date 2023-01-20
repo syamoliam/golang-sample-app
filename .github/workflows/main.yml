@@ -5,10 +5,6 @@ on:
   pull_request:
     types: [closed, assigned, opened, reopened] 
 
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.respository }}
-  IMAGE_TAG: 1.0.${{ github.run_number }}
 
 jobs:
   build-push-docker-image:
@@ -48,7 +44,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v1
       with: 
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        images: syamoliam/githubactions
 
     - name: Build and Push Docker Image 
       id: build-and-push
@@ -56,5 +52,5 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ steps.meta.outputs.tags }}:${{ env.IMAGE_TAG }}
+        tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
