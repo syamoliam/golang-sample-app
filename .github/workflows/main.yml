@@ -6,8 +6,8 @@ on:
     types: [closed, assigned, opened, reopened] 
 
 env:
-  IMAGE_NAME: syam
-  IMAGE_TAG: ${{ github.run_number }}
+  IMAGE_NAME: goexample
+  IMAGE_TAG: 1.0.${{ github.run_number }}
   
 jobs:
   build-push-docker-image:
@@ -55,5 +55,5 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ steps.meta.outputs.tags }}${{ env.IMAGE_TAG }}
-        labels: ${{ steps.meta.outputs.labels }}
+        tags: ${{ env.IMAGE_NAME }}${{ env.IMAGE_TAG }}
+        labels: ${{  env.IMAGE_NAME }}
