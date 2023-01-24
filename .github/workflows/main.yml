@@ -46,13 +46,14 @@ jobs:
     - name: Extract Docker metadata
       id: meta
       uses: docker/metadata-action@v1
-      with: 
-        images: syamoliam/githubactions
+  
+        
 
     - name: Build and Push Docker Image 
       id: build-and-push
       uses: docker/build-push-action@v1
       with:
+        images: syamoliam/githubactions
         context: .
         push: true
         tags: ${{ env.IMAGE_NAME }}${{ env.IMAGE_TAG }}
